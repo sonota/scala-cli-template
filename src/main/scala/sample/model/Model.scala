@@ -2,7 +2,7 @@ package sample.model
 
 object Model {
 
-  def main(args: Array[String]): Unit = {
+  def main(args: List[String]): Unit = {
     println("-->> Model.main")
     println(args)
     println(add(
