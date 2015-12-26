@@ -15,4 +15,14 @@ object Model {
     a + b
   }
 
+  def cmdA(args: List[String]): Unit = {
+    println("-->> Model.cmdA")
+    println(args)
+  }
+
+  def cmdB(args: List[String]): Unit = {
+    println("-->> Model.cmdB")
+    println(args)
+  }
+
 }
