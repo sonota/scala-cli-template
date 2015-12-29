@@ -16,6 +16,10 @@ object Main {
       println("arg=" + arg)
     }
 
+    val currentDir = args(0)
+    val projectDir = args(1)
+    val mainArgs = args.toList.drop(2)
+
     var restArgs:List[String] = List()
 
     val parser = new OptionParser[Config]("scala-cli-template") {
@@ -32,7 +36,7 @@ object Main {
       } text("optional unbounded args")
     }
 
-    parser.parse(args, Config()) map { config =>
+    parser.parse(mainArgs, Config()) map { config =>
       println("env=" + config.env)
       println("restArgs=" + restArgs)
       Model.main(restArgs)

@@ -21,10 +21,14 @@ object SubcmdMain {
       println("arg=" + arg)
     }
 
-    val mainArgs:List[String] = args.toList.tail
+    val currentDir = args(0)
+    val projectDir = args(1)
+    val cmd = args(2)
+    val mainArgs:List[String] = args.toList.drop(3)
+
     var restArgs:List[String] = List()
 
-    if( args(0) == "cmd_a" ) {
+    if( cmd == "cmd_a" ) {
       val parser = new OptionParser[ConfigA]("scala-cli-template") {
         head("scala-cli-template", "0.0.1")
         help("help") text("prints this usage text")
@@ -39,7 +43,7 @@ object SubcmdMain {
         } text("optional unbounded args")
       }
 
-      parser.parse(args, ConfigA()) map { config =>
+      parser.parse(mainArgs, ConfigA()) map { config =>
         println("env=" + config.env)
         println("restArgs=" + restArgs)
         Model.cmdA(restArgs)
@@ -47,7 +51,7 @@ object SubcmdMain {
         println("TODO")
       }
 
-    }else if( args(0) == "cmd_b" ) {
+    }else if( cmd == "cmd_b" ) {
       val parser = new OptionParser[ConfigB]("scala-cli-template") {
         head("scala-cli-template", "0.0.1")
         help("help") text("prints this usage text")
@@ -62,7 +66,7 @@ object SubcmdMain {
         } text("optional unbounded args")
       }
 
-      parser.parse(args, ConfigB()) map { config =>
+      parser.parse(mainArgs, ConfigB()) map { config =>
         println("env=" + config.env)
         println("restArgs=" + restArgs)
         Model.cmdB(restArgs)
