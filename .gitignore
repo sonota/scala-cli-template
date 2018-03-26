@@ -1,4 +1,6 @@
 *.class
+*.cache
 /target/
 /project/target/
+/src/target/
 *~
