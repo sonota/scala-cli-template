@@ -20,4 +20,4 @@ cd $PROJECT_DIR
 
 source "${PROJECT_DIR}/common.sh"
 
-$SBT_CMD "runMain sample.SubcmdMain ${CURRENT_DIR} ${PROJECT_DIR} $*"
+_exec_sbt sample.SubcmdMain "${CURRENT_DIR}" "${PROJECT_DIR}" "$@"
