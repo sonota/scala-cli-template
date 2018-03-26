@@ -18,4 +18,4 @@ CURRENT_DIR=$(pwd)
 PROJECT_DIR=$(_get_project_dir)
 cd $PROJECT_DIR
 
-sbt "run-main sample.Main ${CURRENT_DIR} ${PROJECT_DIR} $*"
+sbt "runMain sample.Main ${CURRENT_DIR} ${PROJECT_DIR} $*"
