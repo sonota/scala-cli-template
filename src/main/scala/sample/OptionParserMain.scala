@@ -3,7 +3,7 @@ package sample
 import scopt.OptionParser
 import sample.model.Model
 
-object Main {
+object OptionParserMain {
 
   case class Config(
     h: Boolean = false,
