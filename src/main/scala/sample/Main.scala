@@ -7,7 +7,7 @@ object Main {
 
   case class Config(
     h: Boolean = false,
-    env: String = "devel"
+    profile: String = "profile"
   )
 
   def main(args: Array[String]):Unit = {
@@ -26,8 +26,8 @@ object Main {
       head("scala-cli-template", "0.0.1")
       help("help") text("prints this usage text")
 
-      opt[String]("env") action { (x, c) =>
-        c.copy(env = x)
+      opt[String]("profile") action { (x, c) =>
+        c.copy(profile = x)
       }
 
       arg[String]("...") unbounded() optional() action { (x, c) =>
@@ -37,7 +37,7 @@ object Main {
     }
 
     parser.parse(mainArgs, Config()) map { config =>
-      println("env=" + config.env)
+      println("profile=" + config.profile)
       println("restArgs=" + restArgs)
       Model.main(restArgs)
     } getOrElse {

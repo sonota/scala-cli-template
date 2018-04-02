@@ -7,12 +7,12 @@ object SubcmdMain {
 
   case class ConfigA(
     h: Boolean = false,
-    env: String = "devel"
+    profile: String = "devel"
   )
 
   case class ConfigB(
     h: Boolean = false,
-    env: String = "devel"
+    profile: String = "devel"
   )
 
   def main(args: Array[String]):Unit = {
@@ -33,8 +33,8 @@ object SubcmdMain {
         head("scala-cli-template", "0.0.1")
         help("help") text("prints this usage text")
 
-        opt[String]("env") action { (x, c) =>
-          c.copy(env = x)
+        opt[String]("profile") action { (x, c) =>
+          c.copy(profile = x)
         }
 
         arg[String]("...") unbounded() optional() action { (x, c) =>
@@ -44,7 +44,7 @@ object SubcmdMain {
       }
 
       parser.parse(mainArgs, ConfigA()) map { config =>
-        println("env=" + config.env)
+        println("profile=" + config.profile)
         println("restArgs=" + restArgs)
         Model.cmdA(restArgs)
       } getOrElse {
@@ -56,8 +56,8 @@ object SubcmdMain {
         head("scala-cli-template", "0.0.1")
         help("help") text("prints this usage text")
 
-        opt[String]("env") action { (x, c) =>
-          c.copy(env = x)
+        opt[String]("profile") action { (x, c) =>
+          c.copy(profile = x)
         }
 
         arg[String]("...") unbounded() optional() action { (x, c) =>
@@ -67,7 +67,7 @@ object SubcmdMain {
       }
 
       parser.parse(mainArgs, ConfigB()) map { config =>
-        println("env=" + config.env)
+        println("profile=" + config.profile)
         println("restArgs=" + restArgs)
         Model.cmdB(restArgs)
       } getOrElse {
