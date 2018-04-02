@@ -1,4 +1,4 @@
-# SBT_CMD="/path/to/sbt-x.x.x/bin/mvn"
+# SBT_CMD="/path/to/sbt-x.x.x/bin/sbt"
 SBT_CMD="sbt"
 
 _exec_sbt(){
