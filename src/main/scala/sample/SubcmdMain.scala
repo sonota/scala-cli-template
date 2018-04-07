@@ -1,6 +1,5 @@
 package sample
 
-import scopt.OptionParser
 import sample.model.Model
 
 object SubcmdMain {
@@ -29,50 +28,14 @@ object SubcmdMain {
     var restArgs:List[String] = List()
 
     if( cmd == "cmd_a" ) {
-      val parser = new OptionParser[ConfigA]("scala-cli-template") {
-        head("scala-cli-template", "0.0.1")
-        help("help") text("prints this usage text")
+      val opts = Maparse.parseArgs(mainArgs.toArray, "arg1", "arg2")
 
-        opt[String]("profile") action { (x, c) =>
-          c.copy(profile = x)
-        }
-
-        arg[String]("...") unbounded() optional() action { (x, c) =>
-          restArgs = restArgs :+ x
-          c
-        } text("optional unbounded args")
-      }
-
-      parser.parse(mainArgs, ConfigA()) map { config =>
-        println("profile=" + config.profile)
-        println("restArgs=" + restArgs)
-        Model.cmdA(restArgs)
-      } getOrElse {
-        println("TODO")
-      }
+      Model.cmdA(mainArgs)
 
     }else if( cmd == "cmd_b" ) {
-      val parser = new OptionParser[ConfigB]("scala-cli-template") {
-        head("scala-cli-template", "0.0.1")
-        help("help") text("prints this usage text")
+      val opts = Maparse.parseArgs(mainArgs.toArray, "arg1", "arg2")
 
-        opt[String]("profile") action { (x, c) =>
-          c.copy(profile = x)
-        }
-
-        arg[String]("...") unbounded() optional() action { (x, c) =>
-          restArgs = restArgs :+ x
-          c
-        } text("optional unbounded args")
-      }
-
-      parser.parse(mainArgs, ConfigB()) map { config =>
-        println("profile=" + config.profile)
-        println("restArgs=" + restArgs)
-        Model.cmdB(restArgs)
-      } getOrElse {
-        println("TODO")
-      }
+      Model.cmdB(mainArgs)
 
     }else{
       println(s"unsupported sub command (${mainArgs(0)})")
