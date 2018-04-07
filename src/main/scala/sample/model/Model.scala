@@ -26,9 +26,24 @@ object Model {
   }
 
   def cat(): Unit = {
-    for (line <- io.Source.stdin.getLines()) {
-      println(line)
+    val r:java.io.Reader = new java.io.InputStreamReader(System.in, "UTF-8")
+    val w:java.io.Writer = new java.io.OutputStreamWriter(System.out, "UTF-8")
+
+    var done = false
+    var c:Int = -1
+    while (! done) {
+      c = r.read()
+      if (c < 0) {
+        done = true
+      } else {
+        w.write(c)
+      }
     }
+
+    w.flush()
+    w.close()
+
+    r.close()
   }
 
 }
