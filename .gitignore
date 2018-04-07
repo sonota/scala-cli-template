@@ -4,3 +4,8 @@
 /project/target/
 /src/target/
 *~
+
+# IntelliJ IDEA
+/.idea/
+*.iml
+
