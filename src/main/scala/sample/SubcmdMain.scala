@@ -38,7 +38,10 @@ object SubcmdMain {
       Model.cmdB(mainArgs)
 
     }else if( cmd == "cat" ) {
-      Model.cat()
+      val opts = Maparse.parseArgs(mainArgs.toArray)
+      Model.cat(
+        opts.contains("-A")
+      )
 
     }else{
       println(s"unsupported sub command (${mainArgs(0)})")

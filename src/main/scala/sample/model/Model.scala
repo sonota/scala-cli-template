@@ -25,7 +25,9 @@ object Model {
     println(args)
   }
 
-  def cat(): Unit = {
+  def cat(isInspect: Boolean): Unit = {
+    // println(isInspect)
+
     val r:java.io.Reader = new java.io.InputStreamReader(System.in, "UTF-8")
     val w:java.io.Writer = new java.io.OutputStreamWriter(System.out, "UTF-8")
 
@@ -36,7 +38,19 @@ object Model {
       if (c < 0) {
         done = true
       } else {
-        w.write(c)
+        if (isInspect) {
+          if (c == '\t') {
+              w.write("^I")
+          } else if (c == '\r') {
+              w.write("^M")
+          } else if (c == '\n') {
+              w.write("$\n")
+          } else {
+              w.write(c)
+          }
+        } else {
+          w.write(c)
+        }
       }
     }
 
