@@ -25,4 +25,10 @@ object Model {
     println(args)
   }
 
+  def cat(): Unit = {
+    for (line <- io.Source.stdin.getLines()) {
+      println(line)
+    }
+  }
+
 }

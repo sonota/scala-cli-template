@@ -6,6 +6,14 @@ TODO
 
 TODO
 
+
+# サブコマンド
+
+## cat
+
+    cat README.md | ./run.sh cat
+
+
 # ビルド
 
 ```

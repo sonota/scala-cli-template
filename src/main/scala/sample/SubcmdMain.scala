@@ -37,6 +37,9 @@ object SubcmdMain {
 
       Model.cmdB(mainArgs)
 
+    }else if( cmd == "cat" ) {
+      Model.cat()
+
     }else{
       println(s"unsupported sub command (${mainArgs(0)})")
     }
