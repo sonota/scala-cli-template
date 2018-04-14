@@ -43,6 +43,9 @@ object SubcmdMain {
         opts.contains("-A")
       )
 
+    }else if( cmd == "sort" ) {
+      Model.sort()
+
     }else{
       println(s"unsupported sub command (${mainArgs(0)})")
     }
