@@ -1,5 +1,7 @@
 package sample.model
 
+import scala.collection.mutable.ListBuffer
+
 object Model {
 
   def main(args: List[String]): Unit = {
@@ -70,77 +72,59 @@ object Model {
   }
 
   def readAllLines(): List[String] = {
-    var lines: List[String] = Nil
+    val lines: ListBuffer[String] = ListBuffer()
 
     val r: java.io.Reader = new java.io.InputStreamReader(System.in, "UTF-8")
     var n: Int = 0
-    var buf: List[Integer] = Nil
+    val buf: ListBuffer[Integer] = ListBuffer()
 
     while (n >= 0) {
       n = r.read()
       if (n < 0) {
         // break
       } else {
-        buf = List.concat(buf, List(n))
+        buf += n
         if (n == '\n') {
-          lines = List.concat(lines, List(intListToString(buf)))
-          buf = Nil
+          lines += intListToString(buf.toList)
+          buf.clear
         }
       }
     }
-    lines = List.concat(lines, List(intListToString(buf)))
-    buf = Nil
+    lines += intListToString(buf.toList)
+    buf.clear
 
-    lines
+    lines.toList
   }
 
   def intListToString(ns: List[Integer]): String = {
-    var cs = new Array[Char](ns.size)
-
-    ns.zipWithIndex.foreach{ case(n, i) =>
-      cs(i) = n.toChar
-    }
-
-    String.valueOf(cs)
+    String.valueOf(ns.map{ _.toChar }.toArray)
   }
 
   def sortLines(lines: List[String]): List[String] = {
+    if (lines.size <= 1) {
+      return lines
+    }
+
     val pivot = lines(0)
-    var left: List[String] = Nil
-    var center: List[String] = Nil
-    var right: List[String] = Nil
+    val left: ListBuffer[String] = ListBuffer()
+    val center: ListBuffer[String] = ListBuffer()
+    val right: ListBuffer[String] = ListBuffer()
 
     lines.foreach{ line => 
       val cmp = line.compareTo(pivot)
       if (cmp < 0) {
-        left = List.concat(left, List(line))
+        left += line
       } else if (cmp > 0) {
-        right = List.concat(right, List(line))
+        right += line
       } else {
-        center = List.concat(center, List(line))
+        center += line
       }
     }
 
-    var leftSorted: List[String] = Nil
-    if (left.size >= 2) {
-      leftSorted = sortLines(left)
-    } else {
-      leftSorted = left
-    }
+    val leftSorted: List[String] = sortLines(left.toList)
+    val rightSorted: List[String] = sortLines(right.toList)
 
-    var rightSorted: List[String] = Nil
-    if (right.size >= 2) {
-      rightSorted = sortLines(right)
-    } else {
-      rightSorted = right
-    }
-
-    var result: List[String] = Nil
-    result = List.concat(result, leftSorted)
-    result = List.concat(result, center)
-    result = List.concat(result, rightSorted)
-
-    result
+    List.concat(leftSorted, center.toList, rightSorted)
   }
 
 }
