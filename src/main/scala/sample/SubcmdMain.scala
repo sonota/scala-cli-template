@@ -43,6 +43,9 @@ object SubcmdMain {
         opts.contains("-A")
       )
 
+    }else if( cmd == "hexdump" ) {
+      Model.hexdump()
+
     }else if( cmd == "sort" ) {
       Model.sort()
 

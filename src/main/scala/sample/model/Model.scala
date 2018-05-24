@@ -127,4 +127,39 @@ object Model {
     List.concat(leftSorted, center.toList, rightSorted)
   }
 
+  def hexdump(): Unit = {
+    val is = System.in
+    var ri = -1
+    val buf: Array[Byte] = Array.fill[Byte](16)(0)
+    var lastPos = 0
+    var done = false
+    while (!done) {
+      ri += 1
+      val len = is.read(buf)
+      if (len == -1) {
+        print("%08x\n".format(lastPos))
+        done = true
+      }
+      if (!done) {
+        print(hexdump_formatLine(ri, buf, len) + "\n")
+        lastPos = ri * 16 + len
+      }
+    }
+  }
+
+  def hexdump_formatLine(ri: Int, buf: Array[Byte], len: Int): String = {
+    var line = ""
+    line += "%08x ".format(ri * 16)
+
+    var ci = 0
+    for (ci <- 0 until len) {
+      if ((ci + 8) % 16 == 0) {
+        line += " "
+      }
+      line += " %02x".format(buf(ci))
+    }
+
+    line
+  }
+
 }
