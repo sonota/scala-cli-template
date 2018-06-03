@@ -13,6 +13,10 @@ TODO
 
     cat README.md | ./run.sh cat
 
+## hexdump
+
+    cat {file} | ./run_subcmd.sh hexdump
+
 
 # ビルド
 
