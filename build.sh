@@ -11,6 +11,13 @@ _get_project_dir() {
   return 0
 }
 
+_package(){
+  (
+    cd "$PROJECT_DIR"
+    $SBT_CMD assembly
+  )
+}
+
 # --------------------------------
 # Main
 
@@ -19,6 +26,12 @@ PROJECT_DIR=$(_get_project_dir)
 
 source "${PROJECT_DIR}/common.sh"
 
-java -cp target/scala-2.11/scala-cli-template-assembly-0.0.1.jar \
-  sample.Main \
-  "${CURRENT_DIR}" "${PROJECT_DIR}" "$@"
+case "$1" in
+  package)
+    _package
+    ;;
+  *)
+    echo "invalid argument"
+    exit 1
+    ;;
+esac
